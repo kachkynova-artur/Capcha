@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<h1>Личный кабинет</h1>
+<p>Здравствуйте, <strong>{{ user.get_full_name|default:user.username }}</strong>!</p>
+<table class="info">
+    <tr><td>Логин</td><td>{{ user.username }}</td></tr>
+    <tr><td>Email</td><td>{{ user.email }}</td></tr>
+    <tr><td>Имя</td><td>{{ user.first_name|default:"—" }}</td></tr>
+    <tr><td>Фамилия</td><td>{{ user.last_name|default:"—" }}</td></tr>
+    <tr><td>Дата регистрации</td><td>{{ user.date_joined|date:"d.m.Y H:i" }}</td></tr>
+    <tr><td>Последний вход</td><td>{{ user.last_login|date:"d.m.Y H:i"|default:"—" }}</td></tr>
+</table>
+<a href="{% url 'profile_edit' %}" class="btn">Редактировать профиль</a>
+{% if has_reports %}
+    <a href="{% url 'report_latest' %}" class="btn secondary">Скачать отчёт о тестах (Word)</a>
+{% endif %}
+{% endblock %}

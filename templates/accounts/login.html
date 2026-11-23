@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Вход{% endblock %}
+{% block content %}
+<h1>Вход в систему</h1>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+    {{ form.username }}
+    {{ form.username.errors }}
+
+    <label for="{{ form.password.id_for_label }}">Пароль</label>
+    {{ form.password }}
+    {{ form.password.errors }}
+
+    <label for="{{ form.captcha.id_for_label }}">Решите пример с картинки</label>
+    <div class="captcha-row">
+        <img id="captcha-image" src="{% url 'captcha_image' %}" alt="Капча" width="180" height="56">
+        <a href="{{ request.get_full_path }}" title="Показать другой пример">&#x21bb; Обновить</a>
+    </div>
+    {{ form.captcha }}
+    {{ form.captcha.errors }}
+
+    <input type="hidden" name="next" value="{{ next }}">
+    <button type="submit" class="btn">Войти</button>
+</form>
+<p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
+{% endblock %}

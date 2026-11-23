@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Редактирование профиля{% endblock %}
+{% block content %}
+<h1>Редактирование профиля</h1>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+    {% endfor %}
+    <button type="submit" class="btn">Сохранить</button>
+    <a href="{% url 'profile' %}" class="btn secondary">Отмена</a>
+</form>
+{% endblock %}
